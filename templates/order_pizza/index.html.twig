@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pressto Pizza :: Commandes{% endblock %}
+
+{% block body %}
+<style>
+  .container {
+    max-width: 1000px;
+    margin: 20px auto;
+  }
+
+  .main {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 20px;
+  }
+
+  .order {
+    border-radius: 8px;
+    background: #F3F3F3;
+    box-sizing: border-box;
+    padding: 12px;
+  }
+</style>
+<div class="container">
+  <h2>Commandes</h2>
+  <div class="main">
+    {% for order in orders %}
+      <div class="order">
+        <p>Addresse:</p>
+        <p class="order-address">
+          {{ order.address }} {{ order.zipcode }} {{ order.city }}
+        </p>
+        <ul class="order-pizzas">
+          {% for pizza in order.pizzas %}
+            <li class="order-pizza">
+              {{ pizza.name }}
+            </li>
+          {% endfor %}
+        </ul>
+        <a href="{{ path('list_orders') }}?archive={{ order.id }}"> Archiver</a>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

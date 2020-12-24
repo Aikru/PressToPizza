@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pressto Pizza{% endblock %}
+
+{% block body %}
+<style>
+  .container {
+    max-width: 1000px;
+    margin: 20px auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 20px;
+  }
+
+  .pizza {
+    border-radius: 8px;
+    background: #F3F3F3;
+    box-sizing: border-box;
+    padding: 12px;
+  }
+</style>
+<div class="container">
+  {% for pizza in pizzas %}
+    <div class="pizza">
+      <h2 class="pizza-name">
+        {{ pizza.name }}
+      </h2>
+      <p class="pizza-description">
+        {{ pizza.description }}
+      </p>
+      <ul class="pizza-ingredients">
+        {% for ingredient in pizza.ingredients %}
+          <li class="pizza-ingredient">
+            {{ ingredient.name }}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}

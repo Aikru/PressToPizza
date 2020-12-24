@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pressto Pizza :: Commander{% endblock %}
+
+{% block body %}
+<style>
+  .container {
+    max-width: 1000px;
+    margin: 20px auto;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    grid-gap: 20px;
+  }
+
+  .sidebar, .main-form {
+    border-radius: 8px;
+    background: #F3F3F3;
+    box-sizing: border-box;
+    padding: 12px;
+  }
+
+  .pizza-line {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-gap: 20px;
+    align-items: center;
+  }
+
+  .pizza-name {
+    padding: 0;
+    margin: 0:
+  }
+
+  .pizza-number {
+    max-width: 80px;
+    max-height: 20px;
+  }
+</style>
+<form class="container" action="{{ path('order_pizza') }}" method="POST">
+  <div class="sidebar">
+    {% for pizza in pizzas %}
+      <div class="pizza-line">
+        <p class="pizza-name">
+          {{ pizza.name }}
+        </p>
+      
+        <input type="number" name="{{ pizza.name }}" id="{{ pizza.name }}" placeholder="Quantity" class="pizza-number"/>
+      </div>
+    {% endfor %}
+    {% if errors.zipcode %}
+      <p class="error">{{ errors.pizza }}</p>
+    {% endif %}
+  </div>
+  <div class="main-form">
+    <label for="address">
+      <p>Addresse</p>
+      <input type="text" name="address" id="address" placeholder="Addresse"/>
+      {% if errors.address %}
+        <p class="error">{{ errors.address }}</p>
+      {% endif %}
+    </label>
+    <label for="zipcode">
+      <p>Code postal</p>
+      <input type="text" name="zipcode" id="zipcode" placeholder="Code postal"/>
+      {% if errors.zipcode %}
+        <p class="error">{{ errors.zipcode }}</p>
+      {% endif %}
+    </label>
+    <label for="city">
+      <p>Ville</p>
+      <input type="text" name="city" id="city" placeholder="Ville"/>
+      {% if errors.city %}
+        <p class="error">{{ errors.city }}</p>
+      {% endif %}
+    </label>
+
+    <div style="padding-top: 20px;">
+      <input type="submit" value="Je commande"/>
+    </div>
+  </div>
+</form>
+{% endblock %}
